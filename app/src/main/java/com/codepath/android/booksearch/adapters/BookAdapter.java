@@ -1,6 +1,7 @@
 package com.codepath.android.booksearch.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.codepath.android.booksearch.GlideApp;
-import com.codepath.android.booksearch.MyAppGlideModule;
 import com.codepath.android.booksearch.R;
+import com.codepath.android.booksearch.activities.BookDetailActivity;
 import com.codepath.android.booksearch.models.Book;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,10 +63,20 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
     // Involves populating data into the item through holder
     @Override
-    public void onBindViewHolder(BookAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final BookAdapter.ViewHolder viewHolder, final int position) {
         // Get the data model based on position
         Book book = mBooks.get(position);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                Book book = mBooks.get(position);
+                Context context = viewHolder.itemView.getContext();
+                Intent intent = new Intent(context, BookDetailActivity.class);
+                intent.putExtra(Book.class.getSimpleName(), Parcels.wrap(book));
+                context.startActivity(intent);
+            }
+        });
         // Populate data into the template view using the data object
         viewHolder.tvTitle.setText(book.getTitle());
         viewHolder.tvAuthor.setText(book.getAuthor());

@@ -2,17 +2,24 @@ package com.codepath.android.booksearch.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.android.booksearch.R;
+import com.codepath.android.booksearch.models.Book;
+
+import org.parceler.Parcels;
 
 public class BookDetailActivity extends AppCompatActivity {
     private ImageView ivBookCover;
     private TextView tvTitle;
     private TextView tvAuthor;
+    private RecyclerView rvBooks;
+
+    Book book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,9 @@ public class BookDetailActivity extends AppCompatActivity {
         ivBookCover = (ImageView) findViewById(R.id.ivBookCover);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvAuthor = (TextView) findViewById(R.id.tvAuthor);
+        rvBooks = (RecyclerView) findViewById(R.id.rvBooks);
+
+        book = (Book) Parcels.unwrap(getIntent().getParcelableExtra(Book.class.getSimpleName()));
 
         // Extract book object from intent extras
 
@@ -36,13 +46,22 @@ public class BookDetailActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+//        ItemClickSupport.addTo(rvBooks).setOnItemClickListener(
+//                new ItemClickSupport.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+//                        Intent intent =
+//                    }
+//                }
+//        );
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
