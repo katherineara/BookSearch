@@ -1,6 +1,7 @@
 package com.codepath.android.booksearch.activities;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -32,6 +33,8 @@ public class BookDetailActivity extends AppCompatActivity {
         rvBooks = (RecyclerView) findViewById(R.id.rvBooks);
 
         book = (Book) Parcels.unwrap(getIntent().getParcelableExtra(Book.class.getSimpleName()));
+        ActionBar actionBar = getSupportActionBar(); // or getActionBar();
+        getSupportActionBar().setTitle(book.getTitle());
 
         // Extract book object from intent extras
 
@@ -54,14 +57,7 @@ public class BookDetailActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-//        ItemClickSupport.addTo(rvBooks).setOnItemClickListener(
-//                new ItemClickSupport.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//                        Intent intent =
-//                    }
-//                }
-//        );
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
